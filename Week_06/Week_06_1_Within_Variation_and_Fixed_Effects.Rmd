@@ -568,7 +568,7 @@ crime4 %>%
 - Applied researchers rarely do either of these, and rather will use a command specifically designed for fixed effects
 - Like good ol' `feols()`! (what did you think the "fe" part stood for?)
 - Note there are also functions in **fixest** that do fixed effects in non-linear models like logit, probit, or poisson regression (`feglm()` and `fepois()`)
-- Plus, it clusters the standard errors by the first fixed effect by default, which we usually want!
+- Plus, it allows us to easily cluster by the fixed effect with its `vcov` setting
 
 ---
 
@@ -576,7 +576,7 @@ crime4 %>%
 
 ```{r, echo = TRUE}
 library(fixest)
-pro <- feols(crmrte ~ prbarr | county, data = crime4)
+pro <- feols(crmrte ~ prbarr | county, data = crime4, vcov = ~county)
 etable(de_mean, pro)
 ```
 
